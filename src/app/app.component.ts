@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RegInfo } from './components/registration-form.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'fsf-assessment';
+
+  sendToServer(eventObject: RegInfo) {
+    console.log('sent: ', eventObject);
+    //call service to ExpressJS
+  }
 }

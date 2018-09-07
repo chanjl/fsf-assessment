@@ -1,0 +1,63 @@
+<form #regForm="ngForm" (ngSubmit)="register()">
+  <div fxLayout="column row" fxLayoutAlign="space-evenly stretch" fxLayoutGap="2vw">
+    <mat-form-field>
+      <input required matInput #emailField="ngModel" name="reg-email" placeholder="Email" ngModel>
+      <mat-hint *ngIf="!emailField.pristine && emailField.invalid">
+        Please enter a email address
+      </mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput #passwordField="ngModel" name="reg-password" placeholder="Password" ngModel>
+      <mat-hint *ngIf="!passwordField.pristine && passwordField.invalid">
+        Please enter a name
+      </mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput #nameField="ngModel" name="reg-name" placeholder="Name" ngModel>
+      <mat-hint *ngIf="!nameField.pristine && nameField.invalid">
+        Please enter a name
+      </mat-hint>
+    </mat-form-field>
+    <div fxLayout="column row">
+      <span><b>Gender:</b></span>
+      <mat-radio-group required name="reg-gender" ngModel fxLayoutAlign="center">
+        <mat-radio-button class="radiobutton" value="male">Male</mat-radio-button>
+        <mat-radio-button class="radiobutton" value="female">Female</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div fxLayout="column row" fxLayoutAlign="center">
+      <div>
+        <span><b>Date of Birth:</b></span>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" #dobField="ngModel" name="reg-dob" required ngModel>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-hint *ngIf="!dobField.pristine && dobField.invalid">
+            Please enter a date
+          </mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-form-field>
+      <input required matInput #addressField="ngModel" name="reg-address" placeholder="Address" ngModel>
+      <mat-hint *ngIf="!addressField.pristine && addressField.invalid">
+        Please enter an address
+      </mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput #countryField="ngModel" name="reg-country" placeholder="Country" ngModel>
+      <mat-hint *ngIf="!countryField.pristine && countryField.invalid">
+        Please enter a country
+      </mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input required matInput #contactField="ngModel" name="reg-contact" placeholder="Contact Number" ngModel>
+      <mat-hint *ngIf="!contactField.pristine && contactField.invalid">
+        Please enter a contact number
+      </mat-hint>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit" [disabled]="!regForm.valid">Register</button>
+  </div>
+</form>

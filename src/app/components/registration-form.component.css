@@ -1,0 +1,16 @@
+mat-form-field {
+    width: 100%;
+}
+
+form {
+    margin: 14px;
+}
+
+button {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.radiobutton {
+    margin: 10px;
+}
