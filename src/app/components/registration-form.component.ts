@@ -1,11 +1,16 @@
 import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
-
+import { NgForm, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SendJSService } from '../services/send-js.service';
 export interface RegInfo {
-  // name: string;
-  // artist: string;
-  // rating: number,
-  // image: string;
+  email: string;
+  password: string;
+  name: string,
+  gender: string,
+  dob: string,
+  address: string,
+  country: string,
+  contact: string,
 }
 
 @Component({
@@ -16,24 +21,33 @@ export interface RegInfo {
 export class RegistrationFormComponent implements OnInit {
   
   @Output() //events
-  sendRegInfo = new EventEmitter<RegInfo>();
+  // sendRegInfo = new EventEmitter<RegInfo>();
 
   @ViewChild('regForm')
   regForm: NgForm;
 
-  constructor() { }
+  constructor(private router: Router, private jsSvc: SendJSService) { }
 
   ngOnInit() {
   }
 
   register() {
     const eventObject: RegInfo = {
-      // name: this.addLPForm.value["lp-name"],
-      // artist: this.addLPForm.value["lp-artist"],
-      // rating: _rating,
-      // image: url
+      email: this.regForm.value["reg-email"],
+      password: this.regForm.value["reg-password"],
+      name: this.regForm.value["reg-name"],
+      gender: this.regForm.value["reg-gender"],
+      dob: this.regForm.value["reg-dob"],
+      address: this.regForm.value["reg-address"],
+      country: this.regForm.value["reg-country"],
+      contact: this.regForm.value["reg-contact"]
     }
-    this.sendRegInfo.next(eventObject);
-    // this.regForm.resetForm();
+    console.log(eventObject);
+    //this.sendRegInfo.next(eventObject);
+    //call service to send to Server
+    this.jsSvc.sendRegistration(eventObject).subscribe((data: any) => {
+      this.router.navigate(['/done']);      
+    });
+    this.regForm.resetForm();
   }
 }

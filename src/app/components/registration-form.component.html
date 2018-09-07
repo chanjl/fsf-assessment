@@ -1,16 +1,25 @@
 <form #regForm="ngForm" (ngSubmit)="register()">
   <div fxLayout="column row" fxLayoutAlign="space-evenly stretch" fxLayoutGap="2vw">
     <mat-form-field>
-      <input required matInput #emailField="ngModel" name="reg-email" placeholder="Email" ngModel>
+      <input required email matInput #emailField="ngModel" name="reg-email" placeholder="Email" ngModel>
+      <mat-error *ngIf="emailField.hasError('email')">
+        Please enter a valid email
+      </mat-error>
       <mat-hint *ngIf="!emailField.pristine && emailField.invalid">
-        Please enter a email address
+        Please enter an email address
       </mat-hint>
     </mat-form-field>
     <mat-form-field>
-      <input required matInput #passwordField="ngModel" name="reg-password" placeholder="Password" ngModel>
+      <input required matInput #passwordField="ngModel" minlength="8" name="reg-password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" ngModel>
       <mat-hint *ngIf="!passwordField.pristine && passwordField.invalid">
-        Please enter a name
+        Please enter a password
       </mat-hint>
+      <mat-error *ngIf="passwordField.hasError('minlength')">
+        Please enter a password at least 8 chars
+      </mat-error>
+      <mat-error *ngIf="passwordField.hasError('pattern')">
+          Please enter a password with at least 1 number, one special char (@, #, $) and upper/lowercase
+        </mat-error>
     </mat-form-field>
     <mat-form-field>
       <input required matInput #nameField="ngModel" name="reg-name" placeholder="Name" ngModel>
@@ -18,14 +27,14 @@
         Please enter a name
       </mat-hint>
     </mat-form-field>
-    <div fxLayout="column row">
+    <div fxLayout="column row" fxLayoutGap="2vw">
       <span><b>Gender:</b></span>
-      <mat-radio-group required name="reg-gender" ngModel fxLayoutAlign="center">
-        <mat-radio-button class="radiobutton" value="male">Male</mat-radio-button>
-        <mat-radio-button class="radiobutton" value="female">Female</mat-radio-button>
+      <mat-radio-group required name="reg-gender" ngModel fxLayoutGap="2vw">
+        <mat-radio-button value="male">Male</mat-radio-button>
+        <mat-radio-button value="female">Female</mat-radio-button>
       </mat-radio-group>
     </div>
-    <div fxLayout="column row" fxLayoutAlign="center">
+    <div fxLayout="column row">
       <div>
         <span><b>Date of Birth:</b></span>
       </div>
