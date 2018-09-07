@@ -6,7 +6,7 @@ import { RegistrationFormComponent } from './components/registration-form.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatMomentDateModule} from '@angular/material-moment-adapter';
 import { SubmittedFormComponent } from './components/submitted-form.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,7 +25,6 @@ import { HttpClientModule } from '@angular/common/http';
     FlexLayoutModule,
     FormsModule,
     MatMomentDateModule,
-    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule
   ],

@@ -12,7 +12,6 @@ export class SendJSService {
   constructor(private http: HttpClient) { }
 
   sendRegistration(regInfo: RegInfo): Observable<any> {
-    console.log(regInfo);
     return this.http.post(`${environment.server_url}/register`, regInfo);
   }
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
-import { NgForm, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SendJSService } from '../services/send-js.service';
+import * as moment from 'moment';
+
 export interface RegInfo {
   email: string;
   password: string;
@@ -20,13 +22,12 @@ export interface RegInfo {
 })
 export class RegistrationFormComponent implements OnInit {
   
-  @Output() //events
-  // sendRegInfo = new EventEmitter<RegInfo>();
-
   @ViewChild('regForm')
   regForm: NgForm;
 
   constructor(private router: Router, private jsSvc: SendJSService) { }
+
+  maxDate = moment().subtract(18, 'years');
 
   ngOnInit() {
   }
@@ -37,17 +38,17 @@ export class RegistrationFormComponent implements OnInit {
       password: this.regForm.value["reg-password"],
       name: this.regForm.value["reg-name"],
       gender: this.regForm.value["reg-gender"],
-      dob: this.regForm.value["reg-dob"],
+      dob: moment(this.regForm.value["reg-dob"]).format("D MMM YYYY"),
       address: this.regForm.value["reg-address"],
       country: this.regForm.value["reg-country"],
       contact: this.regForm.value["reg-contact"]
     }
-    console.log(eventObject);
-    //this.sendRegInfo.next(eventObject);
-    //call service to send to Server
     this.jsSvc.sendRegistration(eventObject).subscribe((data: any) => {
-      this.router.navigate(['/done']);      
+      console.log(data);
+      if (data.status == 'SUCCESS') {
+        this.router.navigate(['/done']);
+        this.regForm.resetForm();
+      }      
     });
-    this.regForm.resetForm();
   }
 }

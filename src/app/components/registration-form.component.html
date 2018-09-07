@@ -10,7 +10,8 @@
       </mat-hint>
     </mat-form-field>
     <mat-form-field>
-      <input required matInput #passwordField="ngModel" minlength="8" name="reg-password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" ngModel>
+      <input required matInput #passwordField="ngModel" minlength="8" name="reg-password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#\$]).*$"
+        placeholder="Password" ngModel>
       <mat-hint *ngIf="!passwordField.pristine && passwordField.invalid">
         Please enter a password
       </mat-hint>
@@ -18,8 +19,8 @@
         Please enter a password at least 8 chars
       </mat-error>
       <mat-error *ngIf="passwordField.hasError('pattern')">
-          Please enter a password with at least 1 number, one special char (@, #, $) and upper/lowercase
-        </mat-error>
+        Please enter a password with at least 1 number, one special char (@, #, $) and upper/lowercase
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
       <input required matInput #nameField="ngModel" name="reg-name" placeholder="Name" ngModel>
@@ -34,21 +35,15 @@
         <mat-radio-button value="female">Female</mat-radio-button>
       </mat-radio-group>
     </div>
-    <div fxLayout="column row">
-      <div>
-        <span><b>Date of Birth:</b></span>
-      </div>
-      <div>
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" #dobField="ngModel" name="reg-dob" required ngModel>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-hint *ngIf="!dobField.pristine && dobField.invalid">
-            Please enter a date
-          </mat-hint>
-        </mat-form-field>
-      </div>
-    </div>
+    <mat-form-field>
+      <input matInput [max]="maxDate" [matDatepicker]="picker" #dobField="ngModel" name="reg-dob" placeholder="Date of Birth" required
+        ngModel>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="!dobField.pristine && dobField.invalid">
+        Registrant must be at least 18 years old
+      </mat-error>
+    </mat-form-field>
     <mat-form-field>
       <input required matInput #addressField="ngModel" name="reg-address" placeholder="Address" ngModel>
       <mat-hint *ngIf="!addressField.pristine && addressField.invalid">
@@ -62,10 +57,14 @@
       </mat-hint>
     </mat-form-field>
     <mat-form-field>
-      <input required matInput #contactField="ngModel" name="reg-contact" placeholder="Contact Number" ngModel>
+      <input required matInput #contactField="ngModel" name="reg-contact" pattern="[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s0-9].*$" placeholder="Contact Number"
+        ngModel>
       <mat-hint *ngIf="!contactField.pristine && contactField.invalid">
         Please enter a contact number
       </mat-hint>
+      <mat-error *ngIf="contactField.hasError('pattern')">
+        Please enter a valid contact number
+      </mat-error>
     </mat-form-field>
     <button mat-raised-button color="accent" type="submit" [disabled]="!regForm.valid">Register</button>
   </div>
