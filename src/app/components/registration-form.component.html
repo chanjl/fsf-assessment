@@ -5,14 +5,14 @@
       <mat-error *ngIf="emailField.hasError('email')">
         Please enter a valid email
       </mat-error>
-      <mat-hint *ngIf="!emailField.pristine && emailField.invalid">
+      <mat-hint *ngIf="emailField.touched && emailField.invalid">
         Please enter an email address
       </mat-hint>
     </mat-form-field>
     <mat-form-field>
       <input required matInput #passwordField="ngModel" minlength="8" name="reg-password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#\$]).*$"
         placeholder="Password" ngModel>
-      <mat-hint *ngIf="!passwordField.pristine && passwordField.invalid">
+      <mat-hint *ngIf="passwordField.touched && passwordField.invalid">
         Please enter a password
       </mat-hint>
       <mat-error *ngIf="passwordField.hasError('minlength')">
@@ -24,7 +24,7 @@
     </mat-form-field>
     <mat-form-field>
       <input required matInput #nameField="ngModel" name="reg-name" placeholder="Name" ngModel>
-      <mat-hint *ngIf="!nameField.pristine && nameField.invalid">
+      <mat-hint *ngIf="nameField.touched && nameField.invalid">
         Please enter a name
       </mat-hint>
     </mat-form-field>
@@ -40,26 +40,26 @@
         ngModel>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="!dobField.pristine && dobField.invalid">
+      <mat-error *ngIf="dobField.touched && dobField.invalid">
         Registrant must be at least 18 years old
       </mat-error>
     </mat-form-field>
     <mat-form-field>
       <input required matInput #addressField="ngModel" name="reg-address" placeholder="Address" ngModel>
-      <mat-hint *ngIf="!addressField.pristine && addressField.invalid">
+      <mat-hint *ngIf="addressField.touched && addressField.invalid">
         Please enter an address
       </mat-hint>
     </mat-form-field>
     <mat-form-field>
       <input required matInput #countryField="ngModel" name="reg-country" placeholder="Country" ngModel>
-      <mat-hint *ngIf="!countryField.pristine && countryField.invalid">
+      <mat-hint *ngIf="countryField.touched && countryField.invalid">
         Please enter a country
       </mat-hint>
     </mat-form-field>
     <mat-form-field>
-      <input required matInput #contactField="ngModel" name="reg-contact" pattern="[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s0-9].*$" placeholder="Contact Number"
+      <input required matInput #contactField="ngModel" name="reg-contact" pattern="[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s0-9]*$" placeholder="Contact Number"
         ngModel>
-      <mat-hint *ngIf="!contactField.pristine && contactField.invalid">
+      <mat-hint *ngIf="contactField.touched && contactField.invalid">
         Please enter a contact number
       </mat-hint>
       <mat-error *ngIf="contactField.hasError('pattern')">

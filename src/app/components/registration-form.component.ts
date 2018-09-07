@@ -24,7 +24,6 @@ export class RegistrationFormComponent implements OnInit {
   
   @ViewChild('regForm')
   regForm: NgForm;
-
   constructor(private router: Router, private jsSvc: SendJSService) { }
 
   maxDate = moment().subtract(18, 'years');
@@ -43,6 +42,7 @@ export class RegistrationFormComponent implements OnInit {
       country: this.regForm.value["reg-country"],
       contact: this.regForm.value["reg-contact"]
     }
+    console.log(eventObject);
     this.jsSvc.sendRegistration(eventObject).subscribe((data: any) => {
       console.log(data);
       if (data.status == 'SUCCESS') {
